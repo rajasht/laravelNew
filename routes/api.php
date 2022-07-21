@@ -34,3 +34,7 @@ ROute::get('getstd/{std_nm}',[StudentController::class,'getThisStudent']);
 Route::post('addstud',[StudentController::class,'addStudent']);
 Route::put('updstud',[StudentController::class,'updateStd']);
 Route::delete('delstud/{stud_name}',[StudentController::class,'deleteStudent']);
+
+// for join table related Queries
+Route::get('query',[StudentController::class,'showQueryResult']);
+
