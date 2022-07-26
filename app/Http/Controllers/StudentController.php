@@ -27,7 +27,8 @@ class StudentController extends Controller
     }
 
     public function studentsList(){
-        $data = Student::all();
+        // $data = Student::all();
+        $data = Student::simplePaginate(3);
         return view('StudentsList',['students'=>$data]);
     }
 

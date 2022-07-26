@@ -37,4 +37,8 @@ if(session()->has('studentUpdateSuccess')){
     @endforeach
 </table>
 
+<span>
+    {{$students->links()}}
+</span>
+
 
