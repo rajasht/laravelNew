@@ -91,7 +91,8 @@ class BookController extends Controller
     // Retriving bookdetails as HTML - List
 
     public function bookList(){
-        $data = Book::all();
+        // $data = Book::all();
+        $data = Book::simplePaginate(3);
         return view('BookList',["books"=>$data]);
     }
 

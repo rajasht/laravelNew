@@ -32,4 +32,6 @@ if(session()->has('bookUpdateSuccess')){
     @endforeach
 </table>
 
-
+<span>
+    {{$books->links()}}
+</span>
