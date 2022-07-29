@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // BOOK TABLE CRUD OPERATIONS
 Route::get('getbooks',[BookController::class,'getAllBooks']);
-Route::get('getbook/{bk_dtl}',[BookController::class,'getThisBook']);
+Route::get('getbook/{bk_nml}',[BookController::class,'getThisBook']);
 Route::post('addbook',[BookController::class,'addBook']);
 Route::put('updatebook',[BookController::class,'updateBook']);
 Route::delete('deletebook/{bk_name}',[BookController::class,'deletebook']);
@@ -33,7 +33,7 @@ ROute::get('getstds',[StudentController::class,'getAllStudent']);
 ROute::get('getstd/{std_nm}',[StudentController::class,'getThisStudent']);
 Route::post('addstud',[StudentController::class,'addStudent']);
 Route::put('updstud',[StudentController::class,'updateStd']);
-Route::delete('delstud/{stud_name}',[StudentController::class,'deleteStudent']);
+Route::delete('delstud/{stud_id}',[StudentController::class,'deleteStudent']);
 
 // for join table related Queries
 Route::get('query',[StudentController::class,'showQueryResult']);

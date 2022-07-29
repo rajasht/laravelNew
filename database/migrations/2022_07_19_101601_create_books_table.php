@@ -14,7 +14,7 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id("book_id")->from(101);
+            $table->id("id")->from(101);
             $table->string("book_title")->unique();
             $table->string("book_author");
             $table->integer("pages_count");

@@ -21,9 +21,9 @@ class StudentController extends Controller
         $student->father_name = $req->father_name;
         $student->class = $req->class;
         $student->dob = $req->dob;
-        $student->issued_book_id = $req->issued_book_id;
+        $student->book_id = $req->book_id;
         $student->save();
-        return redirect('addstd');
+        return redirect('stdlist');
     }
 
     public function studentsList(){
@@ -32,26 +32,31 @@ class StudentController extends Controller
         return view('StudentsList',['students'=>$data]);
     }
 
+    public function getStudent(Request $std_id){
+        $data = Student::find($std_id);
+        return view('showSearchStudent',['student'=>$data]);
+    }
+
     public function delStud($st_id){
-        $std = Student::where('student_id',$st_id)->delete();
+        $std = Student::where('id',$st_id)->delete();
         session()->flash('studentDeleteSuccess','Student deleted successfully.');
         return redirect('stdlist');
     }
 
     public function editStdDtl($std_id){
-        $edtStd = Student::where('student_id',$std_id)->get();
+        $edtStd = Student::where('id',$std_id)->get();
         return view('EditStudPage',['data'=>$edtStd]);
     }
 
     public function updateStudent(Request $updReq){
-        $updStd = Student::where('student_id',$updReq->student_id)
+        $updStd = Student::where('id',$updReq->id)
         ->update([
             "roll_no" => $updReq->roll_no,
             "student_name" => $updReq->student_name,
             "father_name" => $updReq->father_name,
             "class" =>$updReq->class,
             "dob" =>$updReq->dob,
-            "issued_book_id" => $updReq->issued_book_id
+            "book_id" => $updReq->book_id
         ]);
         session()->flash('studentUpdateSuccess','Student Updated successfully.');
         return redirect('stdlist');
@@ -76,7 +81,7 @@ class StudentController extends Controller
         $std->father_name = $addReq->father_name;
         $std->class = $addReq->class;
         $std->dob = $addReq->dob;
-        $std->issued_book_id = $addReq->issued_book_id;
+        $std->book_id = $addReq->book_id;
         $res = $std->save();
 
         if($res){
@@ -96,7 +101,7 @@ class StudentController extends Controller
             "father_name" => $updstd->father_name,
             "class" => $updstd->class,
             "dob" => $updstd->dob,
-            "issued_book_id" => $updstd->issued_book_id
+            "book_id" => $updstd->book_id
         ]);
         if($data){
             return ["Result"=>"Student Details Updated Succesfully."];
@@ -107,7 +112,7 @@ class StudentController extends Controller
     }
 
     public function deleteStudent($delStd){
-        $delcheck = Student::where('student_id',$delStd)->delete();
+        $delcheck = Student::where('id',$delStd)->delete();
         if($delcheck){
             return ["Reult"=>"Student Removed Successfully."];
         }
@@ -128,7 +133,7 @@ class StudentController extends Controller
             "father_name"=>'Rajbabbar Singh',
             "class"=>25,
             "dob"=>'2003-07-11',
-            "issued_book_id"=>132
+            "book_id"=>132
         ]);
          if($data){
             echo "Student Added Sucessfully.";
@@ -147,7 +152,7 @@ class StudentController extends Controller
         // Updating A Book Details into Book Table using Update Query
         /*
         $data = DB::table('books')
-        ->where('book_id',122)
+        ->where('id',122)
         ->update([
             "book_title"=>'This is Keshav',
             "book_author"=>'Supream Leader',
@@ -168,10 +173,10 @@ class StudentController extends Controller
 
         /*
         $bk_id = 120;
-        if(DB::table('books')->where('book_id','=',$bk_id)->count()>0)
+        if(DB::table('books')->where('id','=',$bk_id)->count()>0)
         {
             $data = DB::table('books')
-            ->where('book_id',$bk_id)
+            ->where('id',$bk_id)
             ->update([
             "book_title"=>'This is me',
             "book_author"=>'RK Prasad',
@@ -208,7 +213,7 @@ class StudentController extends Controller
         // Deleting any Record from the Books Table using Delete Query
         /*
         $data = DB::table('books')
-        ->where('book_id',125)->delete();
+        ->where('id',125)->delete();
         if($data){
             echo "Book Deleted Sucessfully.";
         }
@@ -252,7 +257,7 @@ class StudentController extends Controller
         
         /*
         $data = DB::table('books')
-        ->join('students','books.book_id','=','students.issued_book_id')
+        ->join('students','books.id','=','students.book_id')
         ->get();
         return view('showdata',['data'=>$data]);
         */
@@ -261,7 +266,7 @@ class StudentController extends Controller
         // joining books table and employees table and show some specefic data of both the tables with the use of alias
         /*
         $data = DB::table('books as b')
-        ->join('students as s','b.book_id','=','s.issued_book_id')
+        ->join('students as s','b.id','=','s.book_id')
         ->select('s.student_id','s.roll_no','s.student_name','b.book_title','b.book_author','b.pages_count')
         ->get();
         return view('showdata',['data'=>$data]);
@@ -272,7 +277,7 @@ class StudentController extends Controller
         // Fetching Students list and their alloted book with condition having student id greater than 1114
     /*    
         $data =   DB::table('students as s')
-        ->join('books as b','s.issued_book_id','=','b.book_id')
+        ->join('books as b','s.book_id','=','b.id')
         ->select('s.student_id','s.roll_no','s.student_name','b.book_title','b.book_author','b.pages_count')
         ->where('s.student_id','>','1114') 
         ->get();
@@ -298,7 +303,7 @@ class StudentController extends Controller
         $student->father_name = "Rajeev Sharma";
         $student->class = 11;
         $student->dob = '1999-12-12';
-        $student->issued_book_id = 128;
+        $student->book_id = 128;
         $student->save();
 
         if($student){

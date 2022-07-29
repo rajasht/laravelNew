@@ -76,7 +76,7 @@ class BookController extends Controller
 
     // Adding bookdetails by HTML - form filling
 
-    public function bookDetails(Request $req){
+    public function addNewBook(Request $req){
         $book = new Book;
 
         $book->book_title = $req->book_title;
@@ -85,7 +85,7 @@ class BookController extends Controller
         $book->price = $req->price;
         $book->published_on = $req->published_on;
         $res = $book->save();
-        return redirect('addbook');
+        return redirect('booklist');
     }
 
     // Retriving bookdetails as HTML - List
@@ -100,8 +100,14 @@ class BookController extends Controller
     // Editing a Book details of Books table on the basis of book name 
 
     public function editBook($bk_id){
-        $bookdata =  Book::where('book_id',$bk_id)->get();
+        $bookdata =  Book::where('id',$bk_id)->get();
         return view('EditBookForm',['bookdetails'=>$bookdata]);
+    }
+
+
+    public function getBook(Request $bk_id){
+        $data = Book::find($bk_id);
+        return view('showSearchBook',['book'=>$data]);
     }
 
     // Updating Edited Book Details from the form
@@ -122,7 +128,7 @@ class BookController extends Controller
     // Deleting a Book from Books table on the basis of book id
 
     public function delBook($bk_id){
-        $delbook = Book::where('book_id',$bk_id);
+        $delbook = Book::where('id',$bk_id);
         $delbook->delete();
         session()->flash('bookDeleteSuccess','Book deleted successfully.');
         return redirect('booklist');

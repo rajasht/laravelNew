@@ -6,6 +6,6 @@
     <input type="text" name = "father_name" placeholder="Enter Father Name"><br><br>
     <input type="text" name = "class" placeholder="Enter Student class"><br><br>
     <input type="text" name = "dob" placeholder="DOB (yyyy-mm-dd)"><br><br>
-    <input type="text" name = "issued_book_id" placeholder="Allocated Book Id"><br><br>
+    <input type="text" name = "book_id" placeholder="Allocated Book Id"><br><br>
     <button type="Submit">Add Student</button>
 </form>

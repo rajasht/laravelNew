@@ -20,22 +20,25 @@ Route::get('/', function () {
 });
 
 // BOOK DATABASE OPERATIONS :
+Route::get('booklist',[BookController::class,'bookList']);
 
 Route::view('addbook','Bookdetails');
-Route::post('addbook',[BookController::class,'bookDetails']);
+Route::post('addbook',[BookController::class,'addNewBook']);
 
-Route::get('booklist',[BookController::class,'bookList']);
+Route::post('getbook',[BookController::class,'getBook']);
+
 
 Route::get('deletebook/{bk_id}',[BookController::class,'delBook']);
 Route::get('editbook/{bk_id}',[BookController::class,'editBook']);
 Route::post('editbook',[BookController::class,'updateBk']);
 
 // STUDENT DATABASE OPERATIONS :
+Route::get('stdlist',[StudentController::class,'studentsList']);
+Route::post('getstd',[StudentController::class,'getStudent']);
 
 Route::view('addstd','Studentdetails');
 Route::post('addstd',[StudentController::class,'studentDetails']);
 
-Route::get('stdlist',[StudentController::class,'studentsList']);
 
 Route::get('deletestud/{bk_id}',[StudentController::class,'delStud']);
 
