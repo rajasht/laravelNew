@@ -14,9 +14,10 @@ class CreateBorrowingsTable extends Migration
     public function up()
     {
         Schema::create('borrowings', function (Blueprint $table) {
-            $table->id("issued_book_id");
-            $table->integer("issued_to_id")->unique();
-            $table->string("issued_to_name");
+            $table->id()->from(101);
+            $table->integer("book_id");
+            $table->integer("student_id");
+            $table->string("student_name");
             $table->date("issue_date");
             $table->date("return_date");
             $table->integer("extra_days");
